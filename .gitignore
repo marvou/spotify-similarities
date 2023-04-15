@@ -1,10 +1,18 @@
-# Backend
-/backend/env/
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.pyc
 *.pyo
+*$py.class
 
-# Frontend
+# Logs
+*.log
+*.swp
+.DS_Store
+
+# Backend virtual environment
+/backend/env/
+
+# Frontend dependencies
 /frontend/node_modules/
 /frontend/build/
 /frontend/.env
