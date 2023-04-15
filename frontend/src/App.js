@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { Container, Form, FormGroup, Label, Input, Button, Card, CardTitle, CardText } from 'reactstrap';
 import './App.css';
 
 function App() {
@@ -23,40 +24,49 @@ function App() {
     }
   };
 
-  return (
+return (
     <div className="App">
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="trackName">Track Name:</label>
-        <input
-          type="text"
-          id="trackName"
-          value={trackName}
-          onChange={(e) => setTrackName(e.target.value)}
-        />
-        <label htmlFor="artistName">Artist Name:</label>
-        <input
-          type="text"
-          id="artistName"
-          value={artistName}
-          onChange={(e) => setArtistName(e.target.value)}
-        />
-        <button type="submit">Find Similar Tracks</button>
-      </form>
-    <div className="similar-tracks">
-      {similarTracks.map((track) => (
-        <div key={track.id}>
-          <h3>{track.name} by {track.artist}</h3>
-          <a href={track.youtube_search_url} target="_blank" rel="noopener noreferrer">
-            YouTube Search: {track.name} by {track.artist}
-          </a>
-          <br />
-          <a href={track.spotify_song_url} target="_blank" rel="noopener noreferrer">
-            Spotify Song: {track.name} by {track.artist}
-          </a>
+      <Container>
+        <h1 className="my-5 text-center">Find Similar Tracks</h1>
+        <Form onSubmit={handleSubmit}>
+          <FormGroup>
+            <Label htmlFor="trackName">Track Name:</Label>
+            <Input
+              type="text"
+              id="trackName"
+              value={trackName}
+              onChange={(e) => setTrackName(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="artistName">Artist Name:</Label>
+            <Input
+              type="text"
+              id="artistName"
+              value={artistName}
+              onChange={(e) => setArtistName(e.target.value)}
+            />
+          </FormGroup>
+          <Button color="primary" type="submit">Find Similar Tracks</Button>
+        </Form>
+        <div className="similar-tracks mt-5">
+          {similarTracks.map((track) => (
+            <Card key={track.id} className="my-3">
+              <CardTitle tag="h3" className="mt-3">{track.name} by {track.artist}</CardTitle>
+              <CardText>
+                <a href={track.youtube_search_url} target="_blank" rel="noopener noreferrer">
+                  YouTube Search: {track.name} by {track.artist}
+                </a>
+                <br />
+                <a href={track.spotify_song_url} target="_blank" rel="noopener noreferrer">
+                  Spotify Song: {track.name} by {track.artist}
+                </a>
+              </CardText>
+            </Card>
+          ))}
         </div>
-      ))}
+      </Container>
     </div>
-  </div>
   );
 }
 
