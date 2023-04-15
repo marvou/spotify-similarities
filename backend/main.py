@@ -40,30 +40,49 @@ def get_track_features(track_id):
     track_features = sp.audio_features([track_id])[0]
     return track_features
 
+# def get_similar_tracks(track_id, limit=10):
+#     # Get the artist ID from the track
+#     track = sp.track(track_id)
+#     artist_id = track['artists'][0]['id']
+
+#     # Get the genres associated with the artist
+#     artist = sp.artist(artist_id)
+#     seed_genres = artist['genres']
+
+#     # Pick up to 5 genres as seeds (Spotify API has a maximum of 5 seed_genres)
+#     seed_genres = seed_genres[:5]
+
+#     recommendations = sp.recommendations(seed_tracks=[track_id], limit=limit, seed_genres=seed_genres)
+#     similar_tracks = []
+#     for track in recommendations['tracks']:
+#         similar_tracks.append({
+#             'id': track['id'],
+#             'name': track['name'],
+#             'artist': track['artists'][0]['name'],
+#             'uri': track['uri']
+#         })
+
+#     return similar_tracks
+
+
 def get_similar_tracks(track_id, limit=10):
-    # Get the artist ID from the track
-    track = sp.track(track_id)
-    artist_id = track['artists'][0]['id']
+    track_features = get_track_features(track_id)
 
-    # Get the genres associated with the artist
-    artist = sp.artist(artist_id)
-    seed_genres = artist['genres']
-
-    # Pick up to 5 genres as seeds (Spotify API has a maximum of 5 seed_genres)
-    seed_genres = seed_genres[:5]
-
-    recommendations = sp.recommendations(seed_tracks=[track_id], limit=limit, seed_genres=seed_genres)
+    recommendations = sp.recommendations(seed_tracks=[track_id], limit=limit)
     similar_tracks = []
     for track in recommendations['tracks']:
+        youtube_search_url = f'https://www.youtube.com/results?search_query={track["name"]}+{track["artists"][0]["name"]}'
+        spotify_song_url = track['external_urls']['spotify']
         similar_tracks.append({
             'id': track['id'],
             'name': track['name'],
             'artist': track['artists'][0]['name'],
-            'uri': track['uri']
+            'uri': track['uri'],
+            'youtube_search_url': youtube_search_url,
+            'spotify_song_url': spotify_song_url,
         })
 
     return similar_tracks
-
 
 
 @app.post("/api/similar-tracks")

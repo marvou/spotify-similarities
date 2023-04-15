@@ -1,4 +1,4 @@
-#!/Users/marvinamuzu/Code/spotify/spotify-similar-tracks/env/bin/python3
+#!/Users/marvinamuzu/Code/spotify/backend/env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -42,17 +42,21 @@ function App() {
         />
         <button type="submit">Find Similar Tracks</button>
       </form>
-      <div className="similar-tracks">
-        <h2>Similar Tracks</h2>
-        <ul>
-          {similarTracks.map((track) => (
-            <li key={track.id}>
-              {track.name} by {track.artist}
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div className="similar-tracks">
+      {similarTracks.map((track) => (
+        <div key={track.id}>
+          <h3>{track.name} by {track.artist}</h3>
+          <a href={track.youtube_search_url} target="_blank" rel="noopener noreferrer">
+            YouTube Search: {track.name} by {track.artist}
+          </a>
+          <br />
+          <a href={track.spotify_song_url} target="_blank" rel="noopener noreferrer">
+            Spotify Song: {track.name} by {track.artist}
+          </a>
+        </div>
+      ))}
     </div>
+  </div>
   );
 }
 
